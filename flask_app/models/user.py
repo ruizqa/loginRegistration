@@ -4,7 +4,7 @@ from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
-
+PW_REGEX = re.compile(r'[A-Z]+[0-9]+|[0-9]+[A-Z]+')
 # model the class after the friend table from our database
 class User:
     def __init__( self , data ):
@@ -31,8 +31,22 @@ class User:
         if len(user['pw']) < 3:
             flash("Password must be at least 3 characters.", "register")
             is_valid = False
+        if not PW_REGEX.match(user['pw']):
+            flash("Your password must have at least 1 number and 1 upper case letter", "register")
+            is_valid = False
         if user['pw'] != user['cpw']:
             flash("Your password does not match the password confirmed", "register")
+            is_valid = False
+        return is_valid
+    @staticmethod
+    def validate_login( user ):
+        is_valid = True
+        # test whether a field matches the pattern
+        if not EMAIL_REGEX.match(user['email']): 
+            flash("Invalid email address!", "login")
+            is_valid = False
+        if len(user['pw']) < 3:
+            flash("Password must be at least 3 characters.", "login")
             is_valid = False
         return is_valid
     @classmethod

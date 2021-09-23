@@ -18,7 +18,7 @@ def create_user():
     if not User.validate_user(request.form):
         # we redirect to the template with the form.
             return redirect('/')
-    print(request.form['pw'])
+    
     pw_hash = bcrypt.generate_password_hash(request.form['pw'])
     
     data = {
@@ -38,6 +38,9 @@ def create_user():
 def login_user():
     # First we make a data dictionary from our request.form coming from our template.
     # The keys in data need to line up exactly with the variables in our query string.
+    if not User.validate_login(request.form):
+        # we redirect to the template with the form.
+            return redirect('/')
 
     data = {
         "email" : request.form["email"],
@@ -45,8 +48,7 @@ def login_user():
     }
 
     user= User.login(data)
-    print("data is ",data)
-    print("user is", user)
+    
     if not user:
         return redirect('/')
     elif not bcrypt.check_password_hash(user['password'], data['password']):
@@ -66,3 +68,7 @@ def read():
     user= User.get_user_info(data)
     return render_template("read.html", user=user)
 
+@app.route("/logout")
+def clearsession():
+    session.clear()
+    return redirect('/')
