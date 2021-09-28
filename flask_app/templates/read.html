@@ -8,11 +8,45 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     </head>
-    <body class="bg-light">
+    <body class="bg-white">
 
-        <div class="h1 text-primary text-center my-5">Welcome {{user['first_name']}}</div>
+        <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-2 fixed-top">
+            <div class="container">
+                <a href="#" class="navbar-brand fs-3 p-0">Login & Registration</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                 data-bs-target="#navmenu" >
+                <span class="navbar-toggler-icon"></span>
+                </button>
 
-        <div class="d-flex row my-5 mx-5 text-start"><a class="fs-4" href="/logout">Logout</a></div>
+                <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                    <a href="/logout" class="btn nav-link lead btn-primary text-white">Logout</a>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        </nav>
+
+        <section class="bg-white py-4"></section>
+
+        <div class="h1 text-success text-center my-5">Welcome, {{user['first_name']}}</div>
+
+        <div class="text-center">
+
+            <!-- Agrego una imagen random de un usario -->
+            <img
+                  src="https://randomuser.me/api/portraits/men/{{user['id']}}.jpg"
+                  class="rounded-circle mb-3"
+                  alt="Picture of Male User"
+                />
+
+        </div>
+
+        <footer class="col-12 bg-dark text-white text-center position-fixed bottom-0">
+            <p class="lead">Coding Dojo Bootcamp Core Assignment</p>
+
+        </footer>
 
     </body>
 </html>

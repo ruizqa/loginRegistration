@@ -19,6 +19,7 @@ class User:
 # Now we use class methods to query our database
     @staticmethod
     def validate_user( user ):
+        query = "SELECT * FROM users WHERE email = %(email)s;"
         is_valid = True
         # test whether a field matches the pattern
         if not EMAIL_REGEX.match(user['email']): 
@@ -33,6 +34,9 @@ class User:
         if len(user['pw']) < 3:
             flash("Password must be at least 3 characters.", "register")
             is_valid = False
+        if len(connectToMySQL('user_login').query_db(query,user))>0:
+            flash("This email is already registered in our database.", "register")
+            is_valid=False
         if not PW_UPPER.match(user['pw']) or not PW_NUMBER.match(user['pw']):
             flash("Your password must have at least 1 number and 1 upper case letter", "register")
             is_valid = False

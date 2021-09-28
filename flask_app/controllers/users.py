@@ -62,9 +62,15 @@ def login_user():
 @app.route("/homepage")
 def read():
     # call the get all classmethod to get all users
+    
+    if not 'email' in session:
+        flash("Please login to access the home page", "login")
+        return redirect("/")
+    
     data={
         'email': session['email']
     }
+
     user= User.get_user_info(data)
     return render_template("read.html", user=user)
 
