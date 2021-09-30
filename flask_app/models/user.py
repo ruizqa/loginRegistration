@@ -64,13 +64,13 @@ class User:
             flash("The email provided does not belong to any of our users. Please register", "login")
             return False
         print(user)
-        return user[0]
+        return cls(user[0])
     @classmethod
     def get_user_info(cls,data):
         query = "SELECT * FROM users WHERE email = %(email)s;"
         # make sure to call the connectToMySQL function with the schema you are targeting.
         user = connectToMySQL('user_login').query_db(query,data)
-        return user[0]
+        return cls(user[0])
     @classmethod
     def save(cls, data ):
         query = "INSERT INTO users ( first_name , last_name , email , password, created_at, updated_at ) VALUES ( %(first_name)s , %(last_name)s , %(email)s ,%(password)s, NOW() , NOW() );"

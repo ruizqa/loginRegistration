@@ -30,13 +30,13 @@
 
         <section class="bg-white py-4"></section>
 
-        <div class="h1 text-success text-center my-5">Welcome, {{user['first_name']}}</div>
+        <div class="h1 text-success text-center my-5">Welcome, {{user.first_name}}</div>
 
         <div class="text-center">
 
             <!-- Agrego una imagen random de un usario -->
             <img
-                  src="https://randomuser.me/api/portraits/men/{{user['id']}}.jpg"
+                  src="https://randomuser.me/api/portraits/men/{{user.id}}.jpg"
                   class="rounded-circle mb-3"
                   alt="Picture of Male User"
                 />

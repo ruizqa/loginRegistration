@@ -51,7 +51,7 @@ def login_user():
     
     if not user:
         return redirect('/')
-    elif not bcrypt.check_password_hash(user['password'], data['password']):
+    elif not bcrypt.check_password_hash(user.password, data['password']):
         flash("The password is incorrect", "login")
         return redirect('/')
     session['email'] = data['email']
